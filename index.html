@@ -15,17 +15,18 @@
 
 
 
-    <div class="container d-flex flex-column gap-5 m-auto text-center text-capitalize pt-5 px-2">
+    <div class="container d-flex flex-column gap-5 m-auto text-center text-capitalize pt-5 px-2 position-relative">
         <h2> todo list store by local storge</h2>
         <input type="text" placeholder="enter name " class="align-self-start p-2">
 
         <div class="itemList">
 
         </div>
+        <div class="add">
+        </div>
     </div>
+  
 
-    <div class="add">
-    </div>
     <style>
         * {
             margin: 0;
@@ -94,16 +95,13 @@
 
         .add {
             position: absolute;
-            top: 100px;
-            left: -50%;
+            top: 95px;
+
             transform: translate(-50%, 0px);
             padding: 5px 40px;
-
-            border-bottom: 2px solid #19eb19;
             box-shadow: 0 0 3px 1px #cacaba;
-
             transition: all ease-in-out 500ms;
-
+            display: none;
         }
 
 
@@ -121,8 +119,18 @@
 
         .del-active {
             display: block;
-            border-bottom-color: red;
+
             left: 50%;
+        }
+
+        .add.del-active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            background: #f01b1b;
+            animation: width 2s linear 1;
         }
 
         .sr-n {
@@ -134,9 +142,43 @@
         span.sr-n::before {
             content: '';
             display: list-item;
-            list-style-type: disclosure-closed;
+            list-style-type: disc;
             position: absolute;
             color: #ffc107;
+        }
+
+        .add.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 2px;
+            bottom: 0;
+            background: #4abe0b;
+            animation: width 2s linear 1;
+        }
+
+        .update-btn {
+            margin-inline: 10px;
+            background: #e0d4d496;
+            padding: 0px 8px;
+            border-radius: 5px;
+            box-shadow: 0 0 0px 1px #adadad;
+            cursor: pointer;
+        }
+
+        @keyframes width {
+            0% {
+                width: 100%
+            }
+
+            50% {
+                width: 50%
+            }
+
+            100% {
+                width: 0%;
+            }
+
         }
     </style>
 </body>

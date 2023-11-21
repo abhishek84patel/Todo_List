@@ -1,26 +1,33 @@
 
-const inputText = document.body.children[0].children[1]
+const inputText = document.body.children[0].children[1];
 const TodoList = document.querySelector('.itemList');
-let obj = JSON.parse(localStorage.getItem('1')) || []
 var addMsg = document.querySelector('.add');
-if (JSON.parse(localStorage.getItem('1'))) fetchData()
+let obj = JSON.parse(localStorage.getItem('1')) || [];
+const itemList1 = document.querySelector('.itemList')
 
+
+function checkData() {
+    JSON.parse(localStorage.getItem('1'))[0] ? fetchData() : itemList1.innerHTML = `<img src="no_data_found.png" width="100%" alt="">`
+
+}
+checkData()
 
 function fetchData() {
     TodoList.innerHTML = ''
-
     JSON.parse(localStorage.getItem('1')).forEach((element, index) => {
 
 
         TodoList.innerHTML += `
         <div class='list'> <span class='sr-n' > ${index}</span>
         <input type='checkbox' class='check'> <p>  ${element.name} </p> <button>Delete</button>
+        <span style='margin-inline:10px ' class="update-btn" > edit </span>
 
         </div>`
-
+        removeItem();
+        update();
     });
-    removeItem();
 }
+
 
 
 
@@ -41,10 +48,10 @@ function emptyInputAlert() {
     addMsg.classList.add('del-active')
     setTimeout(() => {
         addMsg.classList.remove('del-active')
-    }, 1000)
-
+    }, 2000)
 
 }
+
 
 function getSetFun() {
     setData()
@@ -60,17 +67,16 @@ function setData() {
 
     setTimeout(() => {
         addMsg.classList.remove('active')
-    }, 1000)
+    }, 2000)
 
 
 }
 
 function removeItem() {
-
-
     const itemList = document.querySelectorAll('.itemList > div')
 
     itemList.forEach((el, index) => {
+
 
         el.querySelector(`input[type='checkbox']`).addEventListener('click', (e) => {
 
@@ -84,14 +90,15 @@ function removeItem() {
                         function deleteDataLoalStorage() {
                             obj.splice(index, 1)
                             localStorage.setItem('1', JSON.stringify(obj))
-                            fetchData();
+                            // fetchData();
+                            checkData();
                         }
                         e.target.parentElement.remove()
                         addMsg.innerHTML = `   <h4>todo delete</h4>`
                         addMsg.classList.add('del-active');
                         setTimeout(() => {
                             addMsg.classList.remove('del-active')
-                        }, 1000)
+                        }, 2000)
                     }
 
                 })
@@ -109,6 +116,39 @@ function removeItem() {
 }
 
 
+
+
+function update() {
+    const updateBtn = document.querySelector('.update-btn')
+    const itemList = document.querySelectorAll('.itemList > div > p')
+    itemList.forEach((el, index) => {
+        console.log(el)
+        el.addEventListener('click', (e) => {
+            console.log(e.srcElement.parentElement.children[4])
+            inputText.value = e.target.innerText
+            e.srcElement.parentElement.children[4].addEventListener('click', () => {
+                obj.forEach((el, i) => {
+
+
+                    // console.log(obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase())
+                    if (obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase()) {
+
+                        obj[i].name = inputText.value;
+                        localStorage.setItem('1', JSON.stringify(obj))
+                        checkData()
+                        inputText.value = null
+                    }
+
+                });
+            })
+
+
+        })
+
+    })
+
+
+}
 
 
 
