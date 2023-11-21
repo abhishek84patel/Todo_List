@@ -18,7 +18,7 @@ function fetchData() {
 
 
         TodoList.innerHTML += `
-        <div class='list'> <span class='sr-n' > ${index}</span>
+        <div class='list'> <span class='sr-n' > ${index + 1}</span>
         <input type='checkbox' class='check'> <p>  ${element.name} </p> <button>Delete</button>
         <span style='margin-inline:10px ' class="update-btn" > edit </span>
 
@@ -130,13 +130,15 @@ function update() {
                 obj.forEach((el, i) => {
 
 
-                    // console.log(obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase())
-                    if (obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase()) {
 
-                        obj[i].name = inputText.value;
-                        localStorage.setItem('1', JSON.stringify(obj))
-                        checkData()
-                        inputText.value = null
+                    if (obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase()) {
+                        inputText.value ? updateLocal() : emptyInputAlert();
+                        function updateLocal() {
+                            obj[i].name = inputText.value;
+                            localStorage.setItem('1', JSON.stringify(obj))
+                            checkData()
+                            inputText.value = null
+                        }
                     }
 
                 });
