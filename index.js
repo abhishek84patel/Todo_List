@@ -137,6 +137,11 @@ function update() {
                             obj[i].name = inputText.value;
                             localStorage.setItem('1', JSON.stringify(obj))
                             checkData()
+                            addMsg.innerHTML = `<h4> update todo</h4>`
+                            addMsg.classList.add('active')
+                            setTimeout(() => {
+                                addMsg.classList.remove('active')
+                            }, 2000)
                             inputText.value = null
                         }
                     }
