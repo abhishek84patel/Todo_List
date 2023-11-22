@@ -129,15 +129,18 @@ function removeItem() {
 function update() {
     const updateBtn = document.querySelector('.update-btn')
     const itemList = document.querySelectorAll('.itemList > div > p')
+
     itemList.forEach((el, index) => {
         console.log(el)
         el.addEventListener('click', (e) => {
+
             console.log(e.srcElement.parentElement.children[4])
             inputText.value = e.target.innerText
+
             e.srcElement.parentElement.children[4].addEventListener('click', () => {
                 obj.forEach((el, i) => {
 
-
+                    alert('fire on del')
 
                     if (obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase()) {
                         inputText.value ? updateLocal() : emptyInputAlert();
