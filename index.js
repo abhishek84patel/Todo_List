@@ -7,8 +7,16 @@ const itemList1 = document.querySelector('.itemList')
 
 
 function checkData() {
-    JSON.parse(localStorage.getItem('1'))[0] ? fetchData() : itemList1.innerHTML = `<img src="no_data_found.png" width="100%" alt="">`
-
+    // JSON.parse(localStorage.getItem('1')) ? fetchData() : itemList1.innerHTML = `<img src="no_data_found.png" width="100%" alt="">`
+    if (JSON.parse(localStorage.getItem('1'))) {
+        if (JSON.parse(localStorage.getItem('1'))[0]) {
+            fetchData()
+        } else {
+            itemList1.innerHTML = `<img src="no_data_found.png" width="100%" alt="">`
+        }
+    } else {
+        itemList1.innerHTML = `<img src="no_data_found.png" width="100%" alt="">`
+    }
 }
 checkData()
 
