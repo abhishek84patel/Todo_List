@@ -140,7 +140,7 @@ function update() {
             e.srcElement.parentElement.children[4].addEventListener('click', () => {
                 obj.forEach((el, i) => {
 
-                    alert('fire on del')
+          
 
                     if (obj[i].name.toLocaleLowerCase() === e.target.innerText.toLocaleLowerCase()) {
                         inputText.value ? updateLocal() : emptyInputAlert();
